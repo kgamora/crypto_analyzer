@@ -13,4 +13,5 @@ public class Strings {
     public final String RU_ALPHABET = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
     public final String SPECIAL_SYMBOLS = ".,”:-!? ";
     public final String ALPHABET = RU_ALPHABET + SPECIAL_SYMBOLS;
+
 }

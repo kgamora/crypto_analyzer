@@ -41,4 +41,21 @@ public class PathFinder {
 
         return path;
     }
+
+    /*
+    Если путь к файлу абсолютный, вернём его.
+    Если относительный, будем считать, что он лежит в папке user.dir/text
+     */
+    public Path getFilePath(String pathString) {
+        Path path = Path.of(pathString);
+
+        if (path.isAbsolute()) {
+            return path;
+        } else {
+            Path root = getRoot();
+            path = root.resolve(path);
+        }
+
+        return path;
+    }
 }

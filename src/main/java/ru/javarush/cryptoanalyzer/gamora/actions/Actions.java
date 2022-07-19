@@ -5,6 +5,7 @@ import java.util.Locale;
 public enum Actions {
 
     ENCODE(new Encoder()),
+    ENCRYPT(new Encrypt()),
     DECODE(new Decoder());
 
     public final Action action;

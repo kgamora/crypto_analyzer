@@ -2,7 +2,6 @@ package ru.javarush.cryptoanalyzer.gamora.actions;
 
 import ru.javarush.cryptoanalyzer.gamora.constants.Strings;
 import ru.javarush.cryptoanalyzer.gamora.exception.CryptoanalyzerApplicationException;
-import ru.javarush.cryptoanalyzer.gamora.util.PathFinder;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -61,6 +60,20 @@ public abstract class AbstractAction implements Action {
             throw new CryptoanalyzerApplicationException(e);
         }
         currentText = textBuilder.toString();
+    }
+
+    protected String getTextAlphabet() {
+        Set<Character> characterSet = new HashSet<>();
+        for (int i = 0; i < currentText.length(); i++) {
+            Character character = currentText.charAt(i);
+            characterSet.add(character);
+        }
+        char[] chars = new char[characterSet.size()];
+        int i = 0;
+        for (Character character : characterSet) {
+            chars[i++] = character;
+        }
+        return new String(chars);
     }
 
     protected String mapText(Map<Character, Character> charMapping) {
