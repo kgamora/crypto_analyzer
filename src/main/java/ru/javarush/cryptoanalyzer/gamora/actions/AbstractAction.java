@@ -1,10 +1,12 @@
 package ru.javarush.cryptoanalyzer.gamora.actions;
 
+import ru.javarush.cryptoanalyzer.gamora.constants.Strings;
 import ru.javarush.cryptoanalyzer.gamora.exception.CryptoanalyzerApplicationException;
 import ru.javarush.cryptoanalyzer.gamora.util.PathFinder;
 
 import java.io.*;
 import java.nio.file.Path;
+import java.util.*;
 
 public abstract class AbstractAction implements Action {
 
@@ -17,14 +19,35 @@ public abstract class AbstractAction implements Action {
 
     }
 
-    public void build(String[] args) {
-        readPath = PathFinder.pathFinder.getFilePath(args, 1);
-        writePath = PathFinder.pathFinder.getFilePath(args, 2);
-        readFromFile(readPath);
-        key = Integer.parseInt(args[3]);
+    public abstract void build(String[] args);
+
+    protected Map<Character, Character> getCharacterMapping(int key) {
+        char[] oldAlphabet = Strings.strings.ALPHABET.toCharArray();
+        char[] newAlphabet = rotateAlphabet(oldAlphabet, key);
+        Map<Character, Character> charMapping = new HashMap<>();
+        for (int i = 0; i < oldAlphabet.length; i++) {
+            char oldChar = oldAlphabet[i];
+            char newChar = newAlphabet[i];
+            charMapping.put(oldChar, newChar);
+        }
+        return charMapping;
     }
 
-    private void readFromFile(Path readPath) {
+    protected char[] rotateAlphabet(char[] oldAlphabet, int offset) {
+        char[] newAlphabet = new char[oldAlphabet.length];
+        offset = offset % oldAlphabet.length;
+        List<Character> newCharacters = new ArrayList<>();
+        for (char character : oldAlphabet) {
+            newCharacters.add(character);
+        }
+        Collections.rotate(newCharacters, -offset);
+        for (int i = 0; i < newCharacters.size(); i++) {
+            newAlphabet[i] = newCharacters.get(i);
+        }
+        return newAlphabet;
+    }
+
+    protected void readFromFile(Path readPath) {
         int bufferSize = 1024 * 1024;
         StringBuilder textBuilder = new StringBuilder(bufferSize);
         try (Reader fileReader = new FileReader(readPath.toFile())) {
@@ -40,7 +63,19 @@ public abstract class AbstractAction implements Action {
         currentText = textBuilder.toString();
     }
 
-    public void writeResult() {
+    protected String mapText(Map<Character, Character> charMapping) {
+        char[] text = currentText.toCharArray();
+        for (int i = 0; i < text.length; i++) {
+            Character currentChar = text[i];
+            if (charMapping.containsKey(currentChar)) {
+                char newChar = charMapping.get(currentChar);
+                text[i] = newChar;
+            }
+        }
+        return new String(text);
+    }
+
+    protected void writeResult() {
         try (FileWriter fileWriter = new FileWriter(writePath.toFile())) {
             fileWriter.write(currentText.toCharArray());
         } catch (IOException e) {
