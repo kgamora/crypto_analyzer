@@ -5,7 +5,8 @@ import ru.javarush.cryptoanalyzer.gamora.entity.Result;
 public class Decoder extends AbstractAction {
     @Override
     public Result execute() {
-        //TODO: логика дешифрации
+        currentText = currentText.toLowerCase();
+
         throw new UnsupportedOperationException();
     }
 }
