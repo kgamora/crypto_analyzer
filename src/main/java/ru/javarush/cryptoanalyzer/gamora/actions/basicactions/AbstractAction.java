@@ -1,5 +1,6 @@
-package ru.javarush.cryptoanalyzer.gamora.actions;
+package ru.javarush.cryptoanalyzer.gamora.actions.basicactions;
 
+import ru.javarush.cryptoanalyzer.gamora.actions.Action;
 import ru.javarush.cryptoanalyzer.gamora.constants.Strings;
 import ru.javarush.cryptoanalyzer.gamora.exception.CryptoanalyzerApplicationException;
 
@@ -46,7 +47,7 @@ public abstract class AbstractAction implements Action {
         return newAlphabet;
     }
 
-    protected void readFromFile(Path readPath) {
+    protected String readFromFile(Path readPath) {
         int bufferSize = 1024 * 1024;
         StringBuilder textBuilder = new StringBuilder(bufferSize);
         try (Reader fileReader = new FileReader(readPath.toFile())) {
@@ -59,21 +60,7 @@ public abstract class AbstractAction implements Action {
         } catch (IOException e) {
             throw new CryptoanalyzerApplicationException(e);
         }
-        currentText = textBuilder.toString();
-    }
-
-    protected String getTextAlphabet() {
-        Set<Character> characterSet = new HashSet<>();
-        for (int i = 0; i < currentText.length(); i++) {
-            Character character = currentText.charAt(i);
-            characterSet.add(character);
-        }
-        char[] chars = new char[characterSet.size()];
-        int i = 0;
-        for (Character character : characterSet) {
-            chars[i++] = character;
-        }
-        return new String(chars);
+        return textBuilder.toString();
     }
 
     protected String mapText(Map<Character, Character> charMapping) {

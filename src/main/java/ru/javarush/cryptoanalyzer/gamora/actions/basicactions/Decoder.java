@@ -1,7 +1,7 @@
-package ru.javarush.cryptoanalyzer.gamora.actions;
+package ru.javarush.cryptoanalyzer.gamora.actions.basicactions;
 
-import ru.javarush.cryptoanalyzer.gamora.actions.textVerification.PunctuationTextVerification;
-import ru.javarush.cryptoanalyzer.gamora.actions.textVerification.SpellingTextVerification;
+import ru.javarush.cryptoanalyzer.gamora.actions.basicactions.textVerification.PunctuationTextVerification;
+import ru.javarush.cryptoanalyzer.gamora.actions.basicactions.textVerification.SpellingTextVerification;
 import ru.javarush.cryptoanalyzer.gamora.constants.Strings;
 import ru.javarush.cryptoanalyzer.gamora.entity.Result;
 import ru.javarush.cryptoanalyzer.gamora.entity.ResultCode;
@@ -50,7 +50,7 @@ public class Decoder extends AbstractAction {
     public void build(String[] args) {
         readPath = PathFinder.pathFinder.getFilePath(args, 1);
         writePath = PathFinder.pathFinder.getFilePath(args, 2);
-        readFromFile(readPath);
+        currentText = readFromFile(readPath);
         if (args.length == 4) {
             key = Integer.parseInt(args[3]);
         }

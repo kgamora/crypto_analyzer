@@ -1,10 +1,13 @@
-package ru.javarush.cryptoanalyzer.gamora.actions.textVerification;
-
-import ru.javarush.cryptoanalyzer.gamora.constants.Strings;
+package ru.javarush.cryptoanalyzer.gamora.actions.basicactions.textVerification;
 
 public class SpellingTextVerification implements TextVerification {
     @Override
     public boolean verify(String text) {
+        System.out.println("spelling: ");
+        System.out.println("wordsDoNotStartFromSignChars: " + wordsDoNotStartFromSignChars(text));
+        System.out.println("noSignsAfterVowels: " + noSignsAfterVowels(text));
+        System.out.println("noRulesOfLanguageViolated: " + noRulesOfLanguageViolated(text));
+        System.out.println("noSignsBetweenLetters: " + noSignsBetweenLetters(text));
         return wordsDoNotStartFromSignChars(text) && noSignsAfterVowels(text) && noRulesOfLanguageViolated(text) && noSignsBetweenLetters(text);
     }
 

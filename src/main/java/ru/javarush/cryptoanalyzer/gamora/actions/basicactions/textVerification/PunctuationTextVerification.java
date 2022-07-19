@@ -1,9 +1,13 @@
-package ru.javarush.cryptoanalyzer.gamora.actions.textVerification;
+package ru.javarush.cryptoanalyzer.gamora.actions.basicactions.textVerification;
 
 public class PunctuationTextVerification implements TextVerification {
     @Override
     public boolean verify(String text) {
-        return isSpacesAfterCommas(text) && isWhitespacesAfterSentenceEndingMarks(text);
+        System.out.println("punctuation: ");
+        System.out.println("isSpacesAfterCommas: " + isSpacesAfterCommas(text));
+        System.out.println("isWhitespacesAfterSentenceEndingMarks: " + isWhitespacesAfterSentenceEndingMarks(text));
+        //оказалось проблемным, выпилено.
+        return true;//isSpacesAfterCommas(text) /*&& isWhitespacesAfterSentenceEndingMarks(text)*/;
     }
 
     /*
@@ -12,7 +16,7 @@ public class PunctuationTextVerification implements TextVerification {
      * @return boolean - there's no commas that aren't guided by space
      */
     private boolean isSpacesAfterCommas(String text) {
-        String commaRegEx = "[,][^ \\n]";
+        String commaRegEx = "[,][^ \n]";
         return noMatch(text, commaRegEx);
     }
 

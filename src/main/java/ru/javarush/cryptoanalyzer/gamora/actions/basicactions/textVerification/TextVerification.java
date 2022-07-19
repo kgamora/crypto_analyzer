@@ -1,4 +1,4 @@
-package ru.javarush.cryptoanalyzer.gamora.actions.textVerification;
+package ru.javarush.cryptoanalyzer.gamora.actions.basicactions.textVerification;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

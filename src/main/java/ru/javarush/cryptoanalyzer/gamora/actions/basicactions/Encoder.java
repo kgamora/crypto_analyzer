@@ -1,4 +1,4 @@
-package ru.javarush.cryptoanalyzer.gamora.actions;
+package ru.javarush.cryptoanalyzer.gamora.actions.basicactions;
 
 import ru.javarush.cryptoanalyzer.gamora.entity.Result;
 import ru.javarush.cryptoanalyzer.gamora.entity.ResultCode;
@@ -20,7 +20,7 @@ public class Encoder extends AbstractAction {
     public void build(String[] args) {
         readPath = PathFinder.pathFinder.getFilePath(args, 1);
         writePath = PathFinder.pathFinder.getFilePath(args, 2);
-        readFromFile(readPath);
+        currentText = readFromFile(readPath);
         key = Integer.parseInt(args[3]);
     }
 }

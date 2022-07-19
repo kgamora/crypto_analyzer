@@ -1,49 +1,22 @@
-package ru.javarush.cryptoanalyzer.gamora.actions;
+package ru.javarush.cryptoanalyzer.gamora.actions.cryptoactions;
 import ru.javarush.cryptoanalyzer.gamora.entity.Result;
 import ru.javarush.cryptoanalyzer.gamora.entity.ResultCode;
-import ru.javarush.cryptoanalyzer.gamora.exception.CryptoanalyzerApplicationException;
 import ru.javarush.cryptoanalyzer.gamora.util.PathFinder;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class Encrypt extends AbstractAction {
-    private final Path dictPath = PathFinder.pathFinder.getFilePath("dict.txt");
-    private Map<Character, Character> map;
+public class Encrypt extends AbstractCryptoAction {
 
     @Override
     public Result execute() {
         currentText = currentText.toLowerCase();
-        String oldAlphabet = getTextAlphabet();
+        String oldAlphabet = getTextAlphabet(currentText);
         map = getNewAlphabet(oldAlphabet);
         currentText = mapText(map);
         writeResult();
         return new Result(ResultCode.OK);
-    }
-
-    @Override
-    protected void writeResult() {
-        super.writeResult();
-        writeDictionary();
-    }
-
-    private void writeDictionary() {
-        try (FileWriter fileWriter = new FileWriter(dictPath.toFile())) {
-            fileWriter.write(map.toString().toCharArray());
-        } catch (IOException e) {
-            throw new CryptoanalyzerApplicationException(e);
-        }
-    }
-
-    @Override
-    public void build(String[] args) {
-        readPath = PathFinder.pathFinder.getFilePath(args, 1);
-        writePath = PathFinder.pathFinder.getFilePath(args, 2);
-        readFromFile(readPath);
     }
 
     private Map<Character, Character> getNewAlphabet(String oldAlphabet) {
