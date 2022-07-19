@@ -6,8 +6,8 @@ import ru.javarush.cryptoanalyzer.gamora.entity.Result;
 
 public abstract class Application {
 
-    private final Controller controller;
-    private final String[] args;
+    protected final Controller controller;
+    protected final String[] args;
 
     protected Application(String[] args) {
         this.controller = getController(args);
