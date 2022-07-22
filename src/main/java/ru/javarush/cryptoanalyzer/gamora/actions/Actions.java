@@ -9,6 +9,9 @@ import java.util.Locale;
 
 public enum Actions {
 
+    START(new Start()),
+    HELP(new Help()),
+    EXIT(new Exit()),
     ENCODE(new Encoder()),
     ENCRYPT(new Encrypt()),
     DECRYPT(new Decrypt()),

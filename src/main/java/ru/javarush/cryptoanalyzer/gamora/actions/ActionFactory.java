@@ -1,5 +1,8 @@
 package ru.javarush.cryptoanalyzer.gamora.actions;
 
+import ru.javarush.cryptoanalyzer.gamora.exception.CryptoanalyzerApplicationException;
+import ru.javarush.cryptoanalyzer.gamora.exception.ExceptionMessages;
+
 public class ActionFactory {
 
     public ActionFactory() {
@@ -9,7 +12,11 @@ public class ActionFactory {
         //TODO: логика выбора действия
         String command = args[0];
         Action action = parseAction(command);
-        action.build(args);
+        try {
+            action.build(args);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CryptoanalyzerApplicationException(ExceptionMessages.INVALID_ARGUMENTS.exceptionMessage);
+        }
         return action;
     }
 
